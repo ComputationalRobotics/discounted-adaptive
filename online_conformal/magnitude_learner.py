@@ -31,10 +31,10 @@ class MagnitudeLearner(BasePredictor):
         self.h = 0 # running estimate of Lipshitz constant
         self.delta_unproj = 0 # unprojected prediction
         
-        if max_scale is None:
-            self.scale = {}
-        else:
-            self.scale = {j + 1: float(max_scale) for j in range(horizon)}
+        # if max_scale is None:
+        #     self.scale = {}
+        # else:
+        #     self.scale = {j + 1: float(max_scale) for j in range(horizon)}
         super().__init__(*args, horizon=horizon, **kwargs)
 
         # Use calibration to initialize learning rate & estimates for deltas

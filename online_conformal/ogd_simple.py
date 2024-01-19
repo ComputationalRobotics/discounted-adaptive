@@ -10,8 +10,7 @@ import pandas as pd
 from typing import Tuple
 
 from online_conformal.base import BasePredictor
-# from online_conformal.enbpi import EnbMixIn
-from online_conformal.utils import pinball_loss_grad, Residuals
+from online_conformal.utils import pinball_loss_grad
 
 
 class SimpleOGD(BasePredictor):
@@ -43,6 +42,3 @@ class SimpleOGD(BasePredictor):
             self.grad_norm[horizon] += grad**2
             if self.grad_norm[horizon] != 0:
                 self.delta[horizon] = max(0, delta - self.scale[horizon] / np.sqrt(3 * self.grad_norm[horizon]) * grad)
-
-#class EnbOGD(EnbMixIn, ScaleFreeOGD):
-#    pass
