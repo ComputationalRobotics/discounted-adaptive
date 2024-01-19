@@ -14,7 +14,7 @@ from online_conformal.base import BasePredictor
 from online_conformal.utils import pinball_loss_grad, Residuals
 
 
-class ScaleFreeOGD(BasePredictor):
+class SimpleOGD(BasePredictor):
     """
     Scale-free online gradient descent to learn conformal confidence intervals via online quantile regression. We
     perform online gradient descent on the pinball loss to learn the relevant quantiles of the residuals.
@@ -25,20 +25,9 @@ class ScaleFreeOGD(BasePredictor):
         self.scale = {}
         self.delta = defaultdict(float)
         self.grad_norm = defaultdict(float)
-        if max_scale is None:
-            self.scale = {}
-        else:
-            self.scale = {h + 1: float(max_scale) for h in range(horizon)}
         super().__init__(*args, horizon=horizon, **kwargs)
-
-        # Use calibration to initialize learning rate & estimates for deltas
-        residuals = self.residuals
-        self.residuals = Residuals(self.horizon)
-        for h in range(1, self.horizon + 1):
-            r = residuals.horizon2residuals[h]
-            if h not in self.scale:
-                self.scale[h] = 1 if len(r) == 0 else np.max(np.abs(r)) * np.sqrt(3) # initialize learning rate
-            self.update(pd.Series(r, dtype=float), pd.Series(np.zeros(len(r))), h) # estimate for deltas
+        self.scale[0] = 1
+        self.scale[1] = 1
 
     def predict(self, horizon) -> Tuple[float, float]:
         return -self.delta[horizon], self.delta[horizon]
@@ -54,7 +43,6 @@ class ScaleFreeOGD(BasePredictor):
             self.grad_norm[horizon] += grad**2
             if self.grad_norm[horizon] != 0:
                 self.delta[horizon] = max(0, delta - self.scale[horizon] / np.sqrt(3 * self.grad_norm[horizon]) * grad)
-
 
 #class EnbOGD(EnbMixIn, ScaleFreeOGD):
 #    pass

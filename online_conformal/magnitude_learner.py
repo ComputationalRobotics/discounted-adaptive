@@ -38,13 +38,13 @@ class MagnitudeLearner(BasePredictor):
         super().__init__(*args, horizon=horizon, **kwargs)
 
         # Use calibration to initialize learning rate & estimates for deltas
-        residuals = self.residuals
-        self.residuals = Residuals(self.horizon)
-        for j in range(1, self.horizon + 1):
-          r = residuals.horizon2residuals[j]
-          if j not in self.scale:
-              self.scale[j] = 1 if len(r) == 0 else np.max(np.abs(r)) * np.sqrt(3)
-          self.update(pd.Series(r, dtype=float), pd.Series(np.zeros(len(r))), j)
+        # residuals = self.residuals
+        # self.residuals = Residuals(self.horizon)
+        # for j in range(1, self.horizon + 1):
+        #   r = residuals.horizon2residuals[j]
+        #   if j not in self.scale:
+        #       self.scale[j] = 1 if len(r) == 0 else np.max(np.abs(r)) * np.sqrt(3)
+        #   self.update(pd.Series(r, dtype=float), pd.Series(np.zeros(len(r))), j)
         
     def erfi_unscaled(self,z):
         return erfi(z)/(2/np.sqrt(np.pi))
@@ -57,7 +57,8 @@ class MagnitudeLearner(BasePredictor):
         self.residuals.extend(horizon, residuals.tolist())
         if horizon not in self.scale:
             return
-        EPSILON = 10000
+        #EPSILON = 10000
+        EPSILON = 10
         # EPSILON = 10000000
         DISCOUNT_FACTOR = 0.999
         for s in residuals:
