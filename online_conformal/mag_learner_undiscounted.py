@@ -31,20 +31,12 @@ class MagLearnUndiscounted(BasePredictor):
         self.h = 0 # running estimate of Lipshitz constant
         self.delta_unproj = 0 # unprojected prediction
         
-        if max_scale is None:
-            self.scale = {}
-        else:
-            self.scale = {j + 1: float(max_scale) for j in range(horizon)}
+        # if max_scale is None:
+        #     self.scale = {}
+        # else:
+        #     self.scale = {j + 1: float(max_scale) for j in range(horizon)}
         super().__init__(*args, horizon=horizon, **kwargs)
 
-        # # Use calibration to initialize learning rate & estimates for deltas
-        # residuals = self.residuals
-        # self.residuals = Residuals(self.horizon)
-        # for j in range(1, self.horizon + 1):
-        #   r = residuals.horizon2residuals[j]
-        #   if j not in self.scale:
-        #       self.scale[j] = 1 if len(r) == 0 else np.max(np.abs(r)) * np.sqrt(3)
-        #   self.update(pd.Series(r, dtype=float), pd.Series(np.zeros(len(r))), j)
         
     def erfi_unscaled(self,z):
         return erfi(z)/(2/np.sqrt(np.pi))
@@ -55,8 +47,8 @@ class MagLearnUndiscounted(BasePredictor):
     def update(self, ground_truth: pd.Series, forecast: pd.Series, horizon):
         residuals = np.abs(ground_truth - forecast).values
         self.residuals.extend(horizon, residuals.tolist())
-        if horizon not in self.scale:
-            return
+        # if horizon not in self.scale:
+        #     return
         EPSILON = 1
         for s in residuals:
             #print("s = ", s)
@@ -85,10 +77,6 @@ class MagLearnUndiscounted(BasePredictor):
             self.v = self.v + (grad_surr_clipped)**2
             self.s = self.s - grad_surr_clipped
             self.delta[horizon] = delta
-            # print("delta_unproj = ", self.delta_unproj)
-            # print("delta = ", self.delta[horizon])
-            # print("grad = ", grad)
-            # print("grad_surrogate = ", grad_surrogate)
     
 class EnbMagLearnUndiscounted(EnbMixIn, MagLearnUndiscounted):
     pass
