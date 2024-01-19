@@ -36,6 +36,7 @@ class ScaleFreeOGD(BasePredictor):
         self.residuals = Residuals(self.horizon)
         for h in range(1, self.horizon + 1):
             r = residuals.horizon2residuals[h]
+            print(r)
             if h not in self.scale:
                 self.scale[h] = 1 if len(r) == 0 else np.max(np.abs(r)) * np.sqrt(3) # initialize learning rate
             self.update(pd.Series(r, dtype=float), pd.Series(np.zeros(len(r))), h) # estimate for deltas

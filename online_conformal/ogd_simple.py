@@ -18,6 +18,10 @@ class SimpleOGD(BasePredictor):
     Scale-free online gradient descent to learn conformal confidence intervals via online quantile regression. We
     perform online gradient descent on the pinball loss to learn the relevant quantiles of the residuals.
     From Orabona & Pal, 2016, "Scale-Free Online Learning." https://arxiv.org/abs/1601.01974.
+
+    This is a simplified version of ScaleFreeOGD that does not use the EnbMixIn, 
+    nor does it use the maximum radius to initialize its learning rate (scale).
+    Additionally, the horizon it fixed to be one.
     """
 
     def __init__(self, *args, horizon=1, max_scale=None, **kwargs):

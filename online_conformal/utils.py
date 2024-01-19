@@ -61,8 +61,8 @@ def width(y: pd.Series, yhat: pd.Series, lb: pd.Series, ub: pd.Series):
 class Residuals:
     def __init__(self, horizon):
         assert isinstance(horizon, int) and horizon > 0
-        self.horizon = horizon
-        self.horizon2residuals = {h + 1: [] for h in range(self.horizon)}
+        self.horizon = horizon # horizon
+        self.horizon2residuals = {h + 1: [] for h in range(self.horizon)} # dictionary of res
 
     def __len__(self):
         return max(len(r) for r in self.horizon2residuals.values())
