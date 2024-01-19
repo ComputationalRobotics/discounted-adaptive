@@ -21,24 +21,24 @@ class SimpleOGD(BasePredictor):
     """
 
     def __init__(self, *args, horizon=1, max_scale=None, **kwargs):
-        self.scale = {}
-        self.delta = defaultdict(float)
-        self.grad_norm = defaultdict(float)
-        super().__init__(*args, horizon=horizon, **kwargs)
-        self.scale[0] = 1
-        self.scale[1] = 1
+        self.scale = {} # learning rate
+        self.delta = defaultdict(float) # prediction radius
+        self.grad_norm = defaultdict(float) # normalized gradient
+        super().__init__(*args, horizon=horizon, **kwargs) # initialize base predictor
+        self.scale[0] = 1 # learning rate
+        self.scale[1] = 1 # learning rate
 
     def predict(self, horizon) -> Tuple[float, float]:
-        return -self.delta[horizon], self.delta[horizon]
+        return -self.delta[horizon], self.delta[horizon] # return the radius of the prediction interval
 
     def update(self, ground_truth: pd.Series, forecast: pd.Series, horizon):
-        residuals = np.abs(ground_truth - forecast).values
-        self.residuals.extend(horizon, residuals.tolist())
-        if horizon not in self.scale:
+        residuals = np.abs(ground_truth - forecast).values # difference between ground truth and forecast
+        self.residuals.extend(horizon, residuals.tolist()) # add residuals to the list of residuals
+        if horizon not in self.scale: # if horizon is not in the scale
             return
-        for s in residuals:
-            delta = self.delta[horizon]
-            grad = pinball_loss_grad(np.abs(s), delta, self.coverage)
-            self.grad_norm[horizon] += grad**2
-            if self.grad_norm[horizon] != 0:
-                self.delta[horizon] = max(0, delta - self.scale[horizon] / np.sqrt(3 * self.grad_norm[horizon]) * grad)
+        for s in residuals: # for each residual
+            delta = self.delta[horizon] # get the prediction radius
+            grad = pinball_loss_grad(np.abs(s), delta, self.coverage) # get the gradient
+            self.grad_norm[horizon] += grad**2 # update the gradient norm
+            if self.grad_norm[horizon] != 0: # if the gradient norm is not zero
+                self.delta[horizon] = max(0, delta - self.scale[horizon] / np.sqrt(3 * self.grad_norm[horizon]) * grad) # update the prediction radius
