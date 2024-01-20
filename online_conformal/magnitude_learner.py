@@ -64,14 +64,15 @@ class MagnitudeLearner(BasePredictor):
             
             grad = pinball_loss_grad(np.abs(s), delta, self.coverage)
             
-            if grad*self.delta_unproj < grad*delta:
-                # in practice, this condition shouldn't be entered.
-                grad_surrogate = grad
-                #grad_surrogate = 0
-                print("This condition should be not be entered.")
-                #assert(False)
-            else:
-                grad_surrogate = grad
+            # if grad*self.delta_unproj < grad*delta:
+            #     # in practice, this condition shouldn't be entered.
+            #     grad_surrogate = grad
+            #     #grad_surrogate = 0
+            #     print("This condition should be not be entered.")
+            #     #assert(False)
+            # else:
+            #     grad_surrogate = grad
+            grad_surrogate = grad
 
             grad_surr_clipped = np.clip(grad_surrogate, -DISCOUNT_FACTOR*self.h, DISCOUNT_FACTOR*self.h)
             self.h = max(DISCOUNT_FACTOR*self.h, np.abs(grad_surrogate))
