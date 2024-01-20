@@ -50,7 +50,6 @@ class MagnitudeLearner(BasePredictor):
         #     return
         #EPSILON = 10000
         EPSILON = 10
-        # EPSILON = 10000000
         DISCOUNT_FACTOR = 0.999
         for s in residuals:
             #print("s = ", s)
