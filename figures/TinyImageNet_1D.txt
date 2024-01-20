@@ -1,0 +1,21 @@
+Distribution shift: sudden
+SplitConformal : Cov: 0.843, Avg Width: 129.5, Avg Miscov: 0.122, Avg Regret: 0.0077, Runtime:
+NExConformal   : Cov: 0.894, Avg Width: 123.7, Avg Miscov: 0.051, Avg Regret: 0.0031, Runtime:
+FACI           : Cov: 0.891, Avg Width: 123.4, Avg Miscov: 0.046, Avg Regret: 0.0030, Runtime:
+ScaleFreeOGD   : Cov: 0.899, Avg Width: 123.7, Avg Miscov: 0.038, Avg Regret: 0.0031, Runtime:
+SimpleOGD      : Cov: 0.899, Avg Width: 125.0, Avg Miscov: 0.041, Avg Regret: 0.0031, Runtime:
+FACI_S         : Cov: 0.896, Avg Width: 124.9, Avg Miscov: 0.044, Avg Regret: 0.0030, Runtime:
+SAOCP          : Cov: 0.887, Avg Width: 119.9, Avg Miscov: 0.040, Avg Regret: 0.0035, Runtime:
+MagnitudeLearner: Cov: 0.901, Avg Width: 143.2, Avg Miscov: 0.034, Avg Regret: 0.0191, Runtime:
+MagLearnUndiscounted: Cov: 0.894, Avg Width: 122.0, Avg Miscov: 0.044, Avg Regret: 0.0034, Runtime:
+
+Distribution shift: gradual
+SplitConformal : Cov: 0.826, Avg Width: 153.1, Avg Miscov: 0.102, Avg Regret: 0.0045, Runtime:
+NExConformal   : Cov: 0.895, Avg Width: 159.7, Avg Miscov: 0.041, Avg Regret: 0.0012, Runtime:
+FACI           : Cov: 0.896, Avg Width: 160.3, Avg Miscov: 0.042, Avg Regret: 0.0012, Runtime:
+ScaleFreeOGD   : Cov: 0.900, Avg Width: 160.5, Avg Miscov: 0.025, Avg Regret: 0.0018, Runtime:
+SimpleOGD      : Cov: 0.900, Avg Width: 161.8, Avg Miscov: 0.026, Avg Regret: 0.0018, Runtime:
+FACI_S         : Cov: 0.898, Avg Width: 160.6, Avg Miscov: 0.038, Avg Regret: 0.0013, Runtime:
+SAOCP          : Cov: 0.881, Avg Width: 158.0, Avg Miscov: 0.035, Avg Regret: 0.0025, Runtime:
+MagnitudeLearner: Cov: 0.894, Avg Width: 166.0, Avg Miscov: 0.036, Avg Regret: 0.0209, Runtime:
+MagLearnUndiscounted: Cov: 0.897, Avg Width: 160.8, Avg Miscov: 0.034, Avg Regret: 0.0022, Runtime:

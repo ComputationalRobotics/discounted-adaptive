@@ -170,7 +170,7 @@ cv_models/TinyImageNet/resnet50/
 cv_logits/
 results_dir/
 data/
-figures/
+
 
 data.zip
 cv_logits.zip
