@@ -49,6 +49,7 @@ class MagnitudeLearner(BasePredictor):
         # if horizon not in self.scale:
         #     return
         #EPSILON = 10000
+        #EPSILON = 10
         EPSILON = 10
         DISCOUNT_FACTOR = 0.999
         for s in residuals:
