@@ -58,14 +58,16 @@ class MagLearnUndiscounted(BasePredictor):
             
             grad = pinball_loss_grad(np.abs(s), delta, self.coverage) # get the gradient
             
-            if grad*self.delta_unproj < grad*delta:
-                # in practice, this condition shouldn't be entered.
-                grad_surrogate = grad
-                #grad_surrogate = 0
-                print("This condition should be not be entered.")
-                #assert(False)
-            else:
-                grad_surrogate = grad
+            # if grad*self.delta_unproj < grad*delta:
+            #     # in practice, this condition shouldn't be entered.
+            #     grad_surrogate = grad
+            #     #grad_surrogate = 0
+            #     print("This condition should be not be entered.")
+            #     #assert(False)
+            # else:
+            #     grad_surrogate = grad
+                
+            grad_surrogate = grad
 
             grad_surr_clipped = np.clip(grad_surrogate, -self.h, self.h) # clip the gradient to be within the range of the Lipshitz constant
             self.h = max(self.h, np.abs(grad_surrogate)) # update the running estimate of the Lipshitz constant
