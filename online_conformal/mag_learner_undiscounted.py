@@ -45,7 +45,7 @@ class MagLearnUndiscounted(BasePredictor):
         self.residuals.extend(horizon, residuals.tolist()) # add residuals to the list of residuals
         # if horizon not in self.scale:
         #     return
-        EPSILON = 1 # hyperparameter
+        EPSILON = 10 # hyperparameter
         for s in residuals: # for each residual
             delta = self.delta[horizon] # get the prediction radius
             if self.h == 0: # if the estimated Lipshitz constant is zero
