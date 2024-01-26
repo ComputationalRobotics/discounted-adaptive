@@ -64,25 +64,21 @@ class MagnitudeLearner(BasePredictor):
             
             grad = pinball_loss_grad(np.abs(s), delta, self.coverage)
             
-            # if grad*self.delta_unproj < grad*delta:
-            #     # in practice, this condition shouldn't be entered.
-            #     grad_surrogate = grad
-            #     #grad_surrogate = 0
-            #     print("This condition should be not be entered.")
-            #     #assert(False)
-            # else:
-            #     grad_surrogate = grad
-            grad_surrogate = grad
+            if grad*self.delta_unproj < grad*delta:
+            # #     # in practice, this condition shouldn't be entered.
+                grad_surrogate = 0
+            # #     #grad_surrogate = 0
+            # #     print("This condition should be not be entered.")
+            # #     #assert(False)
+            else:
+                grad_surrogate = grad
+            # grad_surrogate = grad
 
             grad_surr_clipped = np.clip(grad_surrogate, -DISCOUNT_FACTOR*self.h, DISCOUNT_FACTOR*self.h)
             self.h = max(DISCOUNT_FACTOR*self.h, np.abs(grad_surrogate))
             self.v = (DISCOUNT_FACTOR**2) * self.v + (grad_surr_clipped)**2
             self.s = DISCOUNT_FACTOR * self.s - grad_surr_clipped
             self.delta[horizon] = delta
-            # print("delta_unproj = ", self.delta_unproj)
-            # print("delta = ", self.delta[horizon])
-            # print("grad = ", grad)
-            # print("grad_surrogate = ", grad_surrogate)
     
 class EnbMagnitudeLearner(EnbMixIn, MagnitudeLearner):
     pass
