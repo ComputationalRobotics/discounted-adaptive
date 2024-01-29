@@ -89,8 +89,8 @@ class MagnitudeLearnerV2(BasePredictor):
         self.grad_norm = defaultdict(float)
         self.grad = 1.0
         
-        self.v = 0 # gradient variance
-        self.s = 0 # gradient sum
+        self.v = 1.0 # gradient variance
+        self.s = 1.0 # gradient sum
         self.delta_unproj = 0 # unprojected prediction
         
         # if max_scale is None:
@@ -121,11 +121,11 @@ class MagnitudeLearnerV2(BasePredictor):
             delta = np.clip(self.delta_unproj, 0, np.inf)
             grad = pinball_loss_grad(np.abs(s), delta, self.coverage)
             
-            # if grad*self.delta_unproj < grad*delta:
-            #     # in practice, this condition shouldn't be entered.
-            #     grad_surrogate = 0
-            # else:
-            #     grad_surrogate = grad
+            if grad*self.delta_unproj < grad*delta:
+                # in practice, this condition shouldn't be entered.
+                grad_surrogate = 0
+            else:
+                grad_surrogate = grad
             grad_surrogate = grad
             
             self.v = (DISCOUNT_FACTOR**2) * self.v + (grad_surrogate)**2
