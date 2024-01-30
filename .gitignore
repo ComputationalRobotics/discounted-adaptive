@@ -168,6 +168,7 @@ cv_models/TinyImageNet/densenet121/
 cv_models/TinyImageNet/vit_b_16/
 cv_models/TinyImageNet/resnet50/
 cv_logits/
+cv_models/
 results_dir/
 data/
 
