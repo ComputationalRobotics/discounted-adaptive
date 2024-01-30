@@ -46,10 +46,7 @@ class MagnitudeLearner(BasePredictor):
     def update(self, ground_truth: pd.Series, forecast: pd.Series, horizon):
         residuals = np.abs(ground_truth - forecast).values
         self.residuals.extend(horizon, residuals.tolist())
-        # if horizon not in self.scale:
-        #     return
-        #EPSILON = 10000
-        EPSILON = 5
+        EPSILON = 1
         DISCOUNT_FACTOR = 0.999
         for s in residuals:
             #print("s = ", s)
@@ -90,7 +87,7 @@ class MagnitudeLearnerV2(BasePredictor):
         self.grad = 1.0
         
         self.v = 1.0 # gradient variance
-        self.s = 1.0 # gradient sum
+        self.s = 0.0 # gradient sum
         self.delta_unproj = 0 # unprojected prediction
         
         # if max_scale is None:
@@ -108,13 +105,9 @@ class MagnitudeLearnerV2(BasePredictor):
     def update(self, ground_truth: pd.Series, forecast: pd.Series, horizon):
         residuals = np.abs(ground_truth - forecast).values
         self.residuals.extend(horizon, residuals.tolist())
-        # if horizon not in self.scale:
-        #     return
-        #EPSILON = 10000
-        EPSILON = 5
+        EPSILON = 1
         DISCOUNT_FACTOR = 0.999
         for s in residuals:
-            #print("s = ", s)
             delta = self.delta[horizon]
             # Get the unprojected prediction x_tilde
             self.delta_unproj = EPSILON * self.erfi_unscaled(self.s/(2*np.sqrt(self.v)))

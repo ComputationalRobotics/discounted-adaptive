@@ -43,9 +43,7 @@ class MagLearnUndiscounted(BasePredictor):
     def update(self, ground_truth: pd.Series, forecast: pd.Series, horizon): # update the prediction radius
         residuals = np.abs(ground_truth - forecast).values # difference between ground truth and forecast
         self.residuals.extend(horizon, residuals.tolist()) # add residuals to the list of residuals
-        # if horizon not in self.scale: # uncomment these lines for multi-timestep-horizon prediction
-        #     return
-        EPSILON = 5 # hyperparameter
+        EPSILON = 1 # hyperparameter
         for s in residuals: # for each residual
             delta = self.delta[horizon] # get the prediction radius
             if self.h == 0: # if the estimated Lipshitz constant is zero
