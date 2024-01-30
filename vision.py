@@ -214,3 +214,88 @@ def t_to_sev(t, window, run_length=500, schedule=None):
         k = (((t_base* abs(np.random.uniform(1,1.5))) // run_length) % 10 ) 
         return (k if k <= 5 else 10 - k) * np.random.randint(1,2) 
     return 5 * ((t_base // run_length) % 2) # default: sudden schedule
+
+
+def train(args):
+    # Get train/valid data
+    print("Getting training and validation data")
+    train_data = get_base_dataset(args.dataset, "train")
+    valid_data = get_base_dataset(args.dataset, "valid")
+
+    # Load model checkpoint one has been saved. Otherwise, initialize everything from scratch.
+    print("Load model checkpoint one has been saved. Otherwise, initialize everything from scratch.")
+    model_file = get_model_file(args)
+    ckpt_name = os.path.join(os.path.dirname(model_file), "checkpoint.pt")
+    if os.path.isfile(ckpt_name) and not args.ignore_checkpoint:
+        model, opt, epoch, best_epoch, best_valid_acc = torch.load(ckpt_name, map_location=args.device)
+    else:
+        # create save directory if needed
+        print("Create a save directory if needed")
+        if args.local_rank in [-1, 0]:
+            os.makedirs(os.path.dirname(ckpt_name), exist_ok=True)
+        model = create_model(dataset=train_data, model_name=args.model, device=args.device)
+        if "ImageNet" in args.dataset:
+            opt = SGD(model.parameters(), lr=0.1, momentum=0.9)
+        else:
+            opt = Adam(model.parameters(), lr=args.lr)
+        epoch, best_epoch, best_valid_acc = 0, 0, 0.0
+
+    # Set up distributed data parallel if applicable
+    print("Set up distributed data parallel if applicable")
+    writer = args.local_rank in [-1, 0]
+    if args.local_rank != -1:
+        model = nn.parallel.DistributedDataParallel(model, device_ids=[args.device])
+
+    for epoch in range(epoch, args.n_epochs):
+        # Check early stopping condition
+        print("Check early stopping condition")
+        if args.patience and epoch - best_epoch > args.patience:
+            break
+
+        # Main training loop
+        print("Main training loop")
+        train_loader = data_loader(dataset=train_data, batch_size=args.batch_size // args.world_size, epoch=epoch)
+        for x, y in tqdm.tqdm(train_loader, desc=f"Train epoch {epoch+1:2}/{args.n_epochs}", disable=not writer):
+            opt.zero_grad()
+            pred = model(x.to(device=args.device))
+            loss = F.cross_entropy(pred, y.to(device=args.device))
+            loss.backward()
+            opt.step()
+
+        # Anneal learning rate by a factor of 10 every 7 epochs
+        print("Anneal learning rate by a factor of 10 every 7 epochs")
+        if (epoch + 1) % 7 == 0:
+            for g in opt.param_groups:
+                g["lr"] *= 0.1
+
+        # Obtain accuracy on the validation dataset
+        print("Obtain accuracy on the validation dataset")
+        valid_acc = torch.zeros(2, device=args.device)
+        valid_loader = data_loader(valid_data, batch_size=args.batch_size, epoch=epoch)
+        with torch.no_grad():
+            for x, y in tqdm.tqdm(valid_loader, desc=f"Valid epoch {epoch + 1:2}/{args.n_epochs}", disable=True):
+                pred = model(x.to(device=args.device))
+                valid_acc[0] += x.shape[0]
+                valid_acc[1] += (pred.argmax(dim=-1) == y.to(device=args.device)).sum().item()
+
+        # Reduce results from all parallel processes
+        print("Reduce results from all parallel processes")
+        if args.local_rank != -1:
+            dist.all_reduce(valid_acc)
+        valid_acc = (valid_acc[1] / valid_acc[0]).item()
+
+        # Save checkpoint & update best saved model
+        print("Save checkpoints and update best saved model")
+        if writer:
+            print(f"Epoch {epoch + 1:2} valid acc: {valid_acc:.5f}")
+            model_to_save = model.module if args.local_rank != -1 else model
+            if valid_acc > best_valid_acc:
+                best_epoch = epoch
+                best_valid_acc = valid_acc
+                torch.save(model_to_save, model_file)
+            torch.save([model_to_save, opt, epoch + 1, best_epoch, best_valid_acc], ckpt_name)
+
+        # Synchronize before starting next epoch
+        print("Synchronize before starting next epoch")
+        if args.local_rank != -1:
+            dist.barrier()
