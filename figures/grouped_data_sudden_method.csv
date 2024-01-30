@@ -1,4 +1,4 @@
-Method,Distribution,Cov,Avg Width,Avg Miscov,Avg Regret,D
+Method,Distribution,Cov,AvgWidth,AvgMiscov,AvgRegret,D
 SplitConformal,sudden,0.843,129.5,0.122,0.0077,0.001
 SplitConformal,sudden,0.843,129.5,0.122,0.0077,0.01
 SplitConformal,sudden,0.843,129.5,0.122,0.0077,0.1
@@ -55,10 +55,17 @@ MagnitudeLearner,sudden,0.901,143.2,0.034,0.0191,1
 MagnitudeLearner,sudden,0.901,143.2,0.034,0.0191,10
 MagnitudeLearner,sudden,0.901,143.2,0.034,0.0191,100
 MagnitudeLearner,sudden,0.901,143.2,0.034,0.0191,1000
-MagLearnUndiscounted,sudden,0.894,122.0,0.044,0.0034,0.001
-MagLearnUndiscounted,sudden,0.894,122.0,0.044,0.0034,0.01
-MagLearnUndiscounted,sudden,0.894,122.0,0.044,0.0034,0.1
-MagLearnUndiscounted,sudden,0.894,122.0,0.044,0.0034,1
-MagLearnUndiscounted,sudden,0.894,122.0,0.044,0.0034,10
-MagLearnUndiscounted,sudden,0.894,122.0,0.044,0.0034,100
-MagLearnUndiscounted,sudden,0.894,122.0,0.044,0.0034,1000
+MagLearnUndiscounted,sudden,0.903,133.5,0.044,0.0034,0.001
+MagLearnUndiscounted,sudden,0.903,133.5,0.044,0.0034,0.01
+MagLearnUndiscounted,sudden,0.903,133.5,0.044,0.0034,0.1
+MagLearnUndiscounted,sudden,0.903,133.5,0.044,0.0034,1
+MagLearnUndiscounted,sudden,0.903,133.5,0.044,0.0034,10
+MagLearnUndiscounted,sudden,0.903,133.5,0.044,0.0034,100
+MagLearnUndiscounted,sudden,0.903,133.5,0.044,0.0034,1000
+MagLearnerV2,sudden,0.898,1450.0,0.034,0.0191,0.001
+MagLearnerV2,sudden,0.898,1450.0,0.034,0.0191,0.01
+MagLearnerV2,sudden,0.898,1450.0,0.034,0.0191,0.1
+MagLearnerV2,sudden,0.898,1450.0,0.034,0.0191,1
+MagLearnerV2,sudden,0.898,1450.0,0.034,0.0191,10
+MagLearnerV2,sudden,0.898,1450.0,0.034,0.0191,100
+MagLearnerV2,sudden,0.898,1450.0,0.034,0.0191,1000
