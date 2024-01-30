@@ -8,7 +8,7 @@ set(0,'defaultAxesFontSize',16);
 set(0, 'DefaultLineLineWidth', 2);
 
 %% Read the CSV file and organize data
-df = readtable('/figures/grouped_data_sudden_method.csv');
+df = readtable('grouped_data_sudden_method.csv');
 metrics = ["Coverage", "Avg. Width", "Avg. Miscoverage", "Avg. Regret"];
 methods_abbr = ["SplitConformal","NExConformal","FACI", "ScaleFreeOGD", "SimpleOGD", "FACI_S", "SAOCP", "MagnitudeLearner","MagLearnUndiscounted","Modified Mag Learner"];
 D = [1e-3, 1e-2, 1e-1, 1e0, 1e1, 1e2, 1e3];
