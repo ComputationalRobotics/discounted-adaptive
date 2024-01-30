@@ -87,7 +87,6 @@ torchvision==0.16.2
 tornado==6.4
 tqdm==4.66.1
 traitlets==5.14.1
--e git+https://github.com/salesforce/Merlion.git@01c3fc3406ebf19798cedcddbe829ae5339e1424#egg=ts_datasets&subdirectory=ts_datasets
 typing_extensions==4.9.0
 tzdata==2023.4
 urllib3==2.1.0
