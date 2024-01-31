@@ -17,7 +17,7 @@ from scipy.special import erfi
 
 class MagnitudeLearner(BasePredictor):
     """
-    1D MagnitudeLearner
+    1D MagnitudeLearner with discounting and Lipschitz constant estimate. Named MagL-D in the manuscript.
     """
 
     def __init__(self, *args, horizon=1, max_scale=None, **kwargs):
@@ -79,7 +79,7 @@ class EnbMagnitudeLearner(EnbMixIn, MagnitudeLearner):
 
 class MagnitudeLearnerV2(BasePredictor):
     """
-    Magnitude learner with ht = 0.
+    Magnitude learner with ht = 0. Named MagDis in the manuscript.
     """
     def __init__(self, *args, horizon=1, max_scale=None, **kwargs):
         self.scale = {}

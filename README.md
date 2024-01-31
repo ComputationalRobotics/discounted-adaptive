@@ -25,6 +25,8 @@
 3. Figure 3:
     - To generate the data, run `runtime_exp.py`, which will save data to `runtime_results.npz`.
     - To generate the plot, run `runtime_plot.py`, which will show the plot and save it to `figures/TinyImageNet_Runtime.pdf`. 
+4. Table I: 
+    - To generate the data and print results, run `benchmark_exp.py`. This will also generate a plot similar to Figure 1 containing the performance of 10 different algorithms.
 
 # Algorithm Details
 1. `online_conformal/magnitude_learner.py` contains the following:
