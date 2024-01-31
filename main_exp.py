@@ -1,3 +1,6 @@
+"""
+File for generating a temporal plot of local coverage and local width for the online conformal prediction algorithms under various distribution shifts.
+"""
 from collections import defaultdict
 import math
 import os
@@ -67,7 +70,6 @@ if args.local_rank in [-1, 0]:
     lmbda, k_reg, n_class = raps_params(args.dataset)
     D_old = 1 + lmbda * np.sqrt(n_class - k_reg)
     D = D_old
-    #methods = [SimpleOGD, ScaleFreeOGD, SAOCP, SplitConformal, NExConformal, FACI, FACI_S, MagnitudeLearner, MagLearnUndiscounted, MagnitudeLearnerV2]
     methods = [MagnitudeLearner, MagLearnUndiscounted, MagnitudeLearnerV2]
     label2err = defaultdict(list)
     plt.rcParams["text.usetex"] = True
