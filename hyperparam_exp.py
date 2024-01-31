@@ -1,5 +1,5 @@
 """
-File for testing the effects of changing hyperparameters on the performance of the online conformal prediction algorithms.
+File for testing the effects of the estimated magnitude of the prediction radius for the online conformal prediction algorithms.
 """
 import argparse
 from collections import defaultdict

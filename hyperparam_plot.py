@@ -1,3 +1,6 @@
+"""
+File for plotting the effects of the estimated magnitude of the prediction radius on the online conformal prediction algorithms.
+"""
 import numpy as np
 import matplotlib.pyplot as plt
 # Load the saved arrays

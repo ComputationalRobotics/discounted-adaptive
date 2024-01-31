@@ -17,7 +17,7 @@ from scipy.special import erfi
 
 class MagLearnUndiscounted(BasePredictor):
     """
-    Undiscounted 1D Magnitude Learner
+    Undiscounted 1D Magnitude Learner. Named MagL in the manuscript.
     """
 
     def __init__(self, *args, horizon=1, max_scale=None, **kwargs):
