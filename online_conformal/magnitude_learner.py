@@ -86,10 +86,6 @@ class MagnitudeLearnerV2(BasePredictor):
         self.s = 0.0 # gradient sum
         self.delta_unproj = 0 # unprojected prediction
         
-        # if max_scale is None:
-        #     self.scale = {}
-        # else:
-        #     self.scale = {j + 1: float(max_scale) for j in range(horizon)}
         super().__init__(*args, horizon=horizon, **kwargs)
         
     def erfi_unscaled(self,z):
