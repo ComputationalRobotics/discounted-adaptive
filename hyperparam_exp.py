@@ -34,7 +34,7 @@ from cv_utils import create_model, data_loader
 from cv_utils import ImageNet, TinyImageNet, CIFAR10, CIFAR100, ImageNetC, TinyImageNetC, CIFAR10C, CIFAR100C
 
 # Import helper functions
-from vision import *
+from helper_functions import *
 
 args = parse_args()
 if not finished(args) and args.dataset != "ImageNet":

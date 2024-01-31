@@ -31,10 +31,6 @@ class MagnitudeLearner(BasePredictor):
         self.h = 0 # running estimate of Lipshitz constant
         self.delta_unproj = 0 # unprojected prediction
         
-        # if max_scale is None:
-        #     self.scale = {}
-        # else:
-        #     self.scale = {j + 1: float(max_scale) for j in range(horizon)}
         super().__init__(*args, horizon=horizon, **kwargs)
         
     def erfi_unscaled(self,z):
@@ -50,7 +46,6 @@ class MagnitudeLearner(BasePredictor):
         
         DISCOUNT_FACTOR = 0.999
         for s in residuals:
-            #print("s = ", s)
             delta = self.delta[horizon]
             # Get the unprojected prediction x_tilde
             if self.h == 0:
@@ -79,7 +74,7 @@ class EnbMagnitudeLearner(EnbMixIn, MagnitudeLearner):
 
 class MagnitudeLearnerV2(BasePredictor):
     """
-    Magnitude learner with ht = 0. Named MagDis in the manuscript.
+    Magnitude learner with ht = 0. Named MagDis in the manuscript. Includes discount factor.
     """
     def __init__(self, *args, horizon=1, max_scale=None, **kwargs):
         self.scale = {}
