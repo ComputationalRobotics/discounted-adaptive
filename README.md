@@ -18,7 +18,7 @@
 
 # Replicating Experiments
 
-1. Figure 1: To generate the data and plot, run `main_exp.py`.
+1. Figure 1: To generate the data and plot, run `main_exp.py`. This will save the plot to `figures/TinyImageNet_1.0D.pdf`.
 2. Figure 2: 
     - To generate the data, run `hyperparam_exp.py`, which will save data to `hyperparam_results.npz`.
     - To generate the plot, run `hyperparam_plot.py`, which will show the plot and save it to `figures/TinyImageNet_RadiusPrediction.pdf`.
