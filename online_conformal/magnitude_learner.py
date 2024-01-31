@@ -47,6 +47,7 @@ class MagnitudeLearner(BasePredictor):
         residuals = np.abs(ground_truth - forecast).values
         self.residuals.extend(horizon, residuals.tolist())
         EPSILON = 1
+        
         DISCOUNT_FACTOR = 0.999
         for s in residuals:
             #print("s = ", s)

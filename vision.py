@@ -79,7 +79,7 @@ corruptions = [
     "zoom_blur",
 ]
 
-__file__ = "vision.ipynb"
+__file__ = "vision.py"
 
 def get_base_dataset(dataset, split):
     if dataset == "ImageNet":
