@@ -30,7 +30,7 @@ for bar in bars:
     plt.text(bar.get_x() + bar.get_width()/2, yval, round(yval, 2), 
         verticalalignment='bottom', horizontalalignment='center', fontsize=14)
 
-plt.ylabel("Runtime (s)")
+plt.ylabel("Runtime")
 plt.ylim([0, 15])
 
 
