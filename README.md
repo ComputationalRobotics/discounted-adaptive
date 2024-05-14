@@ -1,5 +1,7 @@
 # Discounted Adaptive Online Prediction
 
+[![arXiv](https://img.shields.io/badge/arXiv-2402.02720-b31b1b.svg)](https://arxiv.org/abs/2402.02720)
+
 # Getting Started
 
 1. Create a virtual environment: Enter the following into the terminal at the project's root directory: 
