@@ -17,7 +17,7 @@ from scipy.special import erfi
 
 class MagLearnUndiscounted(BasePredictor):
     """
-    Undiscounted 1D Magnitude Learner
+    Undiscounted 1D Magnitude Learner. Named MagL in the manuscript.
     """
 
     def __init__(self, *args, horizon=1, max_scale=None, **kwargs):
@@ -43,8 +43,6 @@ class MagLearnUndiscounted(BasePredictor):
     def update(self, ground_truth: pd.Series, forecast: pd.Series, horizon): # update the prediction radius
         residuals = np.abs(ground_truth - forecast).values # difference between ground truth and forecast
         self.residuals.extend(horizon, residuals.tolist()) # add residuals to the list of residuals
-        # if horizon not in self.scale:
-        #     return
         EPSILON = 1 # hyperparameter
         for s in residuals: # for each residual
             delta = self.delta[horizon] # get the prediction radius
@@ -60,11 +58,8 @@ class MagLearnUndiscounted(BasePredictor):
             
             if grad*self.delta_unproj < grad*delta:
                 # in practice, this condition shouldn't be entered.
-                grad_surrogate = grad
-                #grad_surrogate = 0
-                print("This condition should be not be entered.")
-                #assert(False)
-            else:
+                grad_surrogate = 0 
+            else: # this condition should be entered every time
                 grad_surrogate = grad
 
             grad_surr_clipped = np.clip(grad_surrogate, -self.h, self.h) # clip the gradient to be within the range of the Lipshitz constant

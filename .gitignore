@@ -168,6 +168,16 @@ cv_models/TinyImageNet/densenet121/
 cv_models/TinyImageNet/vit_b_16/
 cv_models/TinyImageNet/resnet50/
 cv_logits/
+cv_models/
 results_dir/
 data/
-figures/
+
+
+data.zip
+cv_logits.zip
+cv_models.zip
+
+figures/runtime_results.ipynb
+figures/runtime_results.txt
+
+Merlion/merlion
