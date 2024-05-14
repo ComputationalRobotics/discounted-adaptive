@@ -35,7 +35,7 @@ from cv_utils import ImageNet, TinyImageNet, CIFAR10, CIFAR100, ImageNetC, TinyI
 
 import time
 
-from vision import *
+from helper_functions import *
 __file__ = "runtime_exp.py"
 
 

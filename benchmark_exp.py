@@ -1,6 +1,3 @@
-"""
-File for generating a temporal plot of local coverage and local width for the online conformal prediction algorithms under various distribution shifts.
-"""
 from collections import defaultdict
 import math
 import os
@@ -70,7 +67,7 @@ if args.local_rank in [-1, 0]:
     lmbda, k_reg, n_class = raps_params(args.dataset)
     D_old = 1 + lmbda * np.sqrt(n_class - k_reg)
     D = D_old
-    methods = [MagnitudeLearner, MagLearnUndiscounted, MagnitudeLearnerV2]
+    methods = [SimpleOGD, ScaleFreeOGD, SAOCP, SplitConformal, NExConformal, FACI, FACI_S, MagnitudeLearner, MagLearnUndiscounted, MagnitudeLearnerV2]
     label2err = defaultdict(list)
     plt.rcParams["text.usetex"] = True
     h = 5 + 0.5 * (len(methods) > 5)
@@ -182,8 +179,5 @@ if args.local_rank in [-1, 0]:
     ncols = 4
     fig.subplots_adjust(top=0.92 if ncols == len(lines) else 0.88)
     fig.legend(lines, labels, loc="upper center", ncols=ncols, fontsize=10, columnspacing=1.5)
-    __file__ = "vision_TinyImageNet.py"
+    __file__ = "benchmark_exp.py"
     plt.show()
-    figdir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "figures")
-    os.makedirs(figdir, exist_ok=True)
-    fig.savefig(os.path.join(figdir, f"{args.dataset}_{round(D/D_old,3)}D.pdf"))

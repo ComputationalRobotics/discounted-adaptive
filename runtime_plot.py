@@ -1,3 +1,6 @@
+"""
+File for plotting the runtime results of the online conformal prediction algorithms.
+"""
 import numpy as np
 import matplotlib.pyplot as plt
 
