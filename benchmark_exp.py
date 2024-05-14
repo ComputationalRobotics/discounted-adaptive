@@ -1,6 +1,4 @@
 from collections import defaultdict
-import math
-import os
 from re import sub
 
 import matplotlib.pyplot as plt
@@ -23,9 +21,6 @@ from online_conformal.nex_conformal import NExConformal
 from online_conformal.ogd import ScaleFreeOGD
 from online_conformal.split_conformal import SplitConformal
 from online_conformal.utils import pinball_loss
-from cv_utils import create_model, data_loader
-from cv_utils import ImageNet, TinyImageNet, CIFAR10, CIFAR100, ImageNetC, TinyImageNetC, CIFAR10C, CIFAR100C
-
 from helper_functions import *
 
 
@@ -179,5 +174,4 @@ if args.local_rank in [-1, 0]:
     ncols = 4
     fig.subplots_adjust(top=0.92 if ncols == len(lines) else 0.88)
     fig.legend(lines, labels, loc="upper center", ncols=ncols, fontsize=10, columnspacing=1.5)
-    __file__ = "benchmark_exp.py"
     plt.show()
