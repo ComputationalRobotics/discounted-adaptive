@@ -1,21 +1,13 @@
 """
 File for testing the effects of the estimated magnitude of the prediction radius for the online conformal prediction algorithms.
 """
-import argparse
 from collections import defaultdict
-import math
-import os
 from re import sub
-
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from scipy.ndimage import gaussian_filter1d
 import torch
-import torch.distributed as dist
-import torch.nn as nn
 import torch.nn.functional as F
-from torch.optim import Adam, LBFGS, SGD
 import tqdm
 
 # Our new algorithm
@@ -30,8 +22,6 @@ from online_conformal.nex_conformal import NExConformal
 from online_conformal.ogd import ScaleFreeOGD
 from online_conformal.split_conformal import SplitConformal
 from online_conformal.utils import pinball_loss
-from cv_utils import create_model, data_loader
-from cv_utils import ImageNet, TinyImageNet, CIFAR10, CIFAR100, ImageNetC, TinyImageNetC, CIFAR10C, CIFAR100C
 
 # Import helper functions
 from helper_functions import *

@@ -112,7 +112,7 @@ if args.local_rank in [-1, 0]:
                     coverages[name].append(w >= w_opt)
                 predictor.update(ground_truth=pd.Series([s_opt]), forecast=pd.Series([0]), horizon=1)
 
-        # Perform evaluation & produce a pretty graph
+        # Perform evaluation & produce a graph
         plot_loss = True
         for ax in axs[:, i_shift]:
             ax.xaxis.grid(False)
@@ -175,7 +175,6 @@ if args.local_rank in [-1, 0]:
     for line in lines:
         label = line.get_label()
         if label in label2err:
-            #label = f"{label}: $\\mathrm{{LCE}}_k = ({','.join(label2err[label])})$"
             label = f"{label}"
         labels.append(label)
     #ncols = math.ceil(len(lines) / 2) if FACI_S in methods else len(lines)
