@@ -1,23 +1,10 @@
-# Discounted Adaptive Online Prediction
+# Code for the paper "Discounted Adaptive Online Learning: Towards Better Regularization" @ ICML 2024
 
-For presentation at the 2024 International Conference on Machine Learning (ICML).
+See ArXiv for the latest version of the paper.
+
 
 [![arXiv](https://img.shields.io/badge/arXiv-2402.02720-b31b1b.svg)](https://arxiv.org/abs/2402.02720)
 
-## Citation
-
-Zhiyu Zhang, David Bombara, and Heng Yang. Discounted adaptive online prediction. *arXiv preprint arXiv:2402.02720*, 2024.
-
-### Bibtex Format
-
-```text
-@article{zhang2024discounted,
-  title={Discounted Adaptive Online Prediction},
-  author={Zhang, Zhiyu and Bombara, David and Yang, Heng},
-  journal={arXiv preprint arXiv:2402.02720},
-  year={2024}
-}
-```
 
 ## Getting Started
 
@@ -45,7 +32,7 @@ Zhiyu Zhang, David Bombara, and Heng Yang. Discounted adaptive online prediction
 3. Figure 3:
     - To generate the data, run `runtime_exp.py`, which will save data to `runtime_results.npz`.
     - To generate the plot, run `runtime_plot.py`, which will show the plot and save it to `figures/TinyImageNet_Runtime.pdf`. 
-4. Table I: 
+4. Table 1: 
     - To generate the data and print results, run `benchmark_exp.py`. This will also generate a plot similar to Figure 1 containing the performance of 10 different algorithms.
 
 ## Algorithm Details
